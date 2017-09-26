@@ -112,8 +112,8 @@ The corresponding probabilities were, respectively:
 1) [ 0.53674084,  0.41021359,  0.02243277,  0.02100401,  0.0096088 ]
 2) [ 9.99872804e-01, 8.41284491e-05, 2.00139748e-05, 1.63100704e-05, 6.68842631e-06 ]
 3) [ 0.38586387, 0.2144867, 0.21113734, 0.10630795, 0.08220422 ]
-4) [ 0.8433997, 0.14994322, 0.00324018, 0.00172584, 0.00169102]
-5) [ 0.42959258, 0.30500275, 0.10066373, 0.08846615, 0.07627483]
+4) [ 0.8433997, 0.14994322, 0.00324018, 0.00172584, 0.00169102 ]
+5) [ 0.42959258, 0.30500275, 0.10066373, 0.08846615, 0.07627483 ]
 
 ## Visualizing the first convolutional layer
 You may find the outputs of all the filters present in the first convolutional layer below, when fed a randomly selected image from the training set (in this case, a 'Keep right' sign):
