@@ -19,7 +19,7 @@ The frequency histograms of the different traffic signs in each dataset are as f
 
 Our preprocessing pipeline consists of two simple steps:
 1) applying [histogram equalization](http://docs.opencv.org/2.4/doc/tutorials/imgproc/histograms/histogram_equalization/histogram_equalization.html) to the images in all datasets, partly solving contrast issues occurring in some images;
-2) normalizing the pixel values, by centering them around their mean (measured with respect to the validation set), and by correcting their standard deviation (so that it be equal `1.0` in the validation set).
+2) normalizing the pixel values, by centering them around their mean (measured with respect to the validation set), and by correcting their standard deviation (so that it be equal to `1.0` in the validation set).
 
 Note that it would have been a poor design choice to use, for example, the mean and standard deviation of each specific image to do the normalization, since this would make the inputs of the neural network context-specific (e.g. the same red color could take two very distinct values in separate images).
 
@@ -75,7 +75,7 @@ Using a high dropout in the early stages of training can significantly obstruct 
 
 ## Solution approach
 
-We achieved 95% accuracy on the validation set and 95.9% accuracy on the validation set (both in epoch 29). We only save over previous checkpoints when the validation set accuracy is improved in later epochs, which did not happen in this case. The test accuracy was 92.8% (this value was only computed at the time of writing this report, with no changes being made thereafter).
+We achieved 95.1% accuracy on the validation set and 95.8% accuracy on the validation set (both in epoch 26). We only save over previous checkpoints when the validation set accuracy is improved in later epochs, which did not happen in this case. The test accuracy was 92.6% (this value was only computed at the time of writing this report, with no changes being made thereafter).
 
 My approach was not very iterative; instead, I focused on solving each component of the pipeline well, but in a linear fashion. In my view, the key components that allowed me to reach the required accuracy on the validation set (93%), and in fact beat it by 2%, were:
 1) the use of SELU activations;
@@ -97,19 +97,24 @@ Here are the five images I downloaded for testing purposes:
 ![test image 4](images/new4.png)
 ![test image 5](images/new5.png)
 
-Our model classified them as being, respectively, 'Dangerous curve to the left', 'General caution', 'Yield', 'Road work', and 'Speed limit (30km/h)', corresponding to a 60% accuracy rate. Unsurprisingly, this is lower than the reported test accuracy (92.8%), since these images were acquired and preprocessed differently (although I did apply my preprocessing pipeline on them).
+Our model classified them as being, respectively, 'Slippery road', 'General caution', 'General caution', 'Road work', and 'Speed limit (30km/h)', corresponding to a 60% accuracy rate. Unsurprisingly, this is lower than the reported test accuracy (92.6%), since these images were acquired and preprocessed differently (although I did apply my preprocessing pipeline on them). Moreover, one of the images (the third, actually contains a pretty visible 'Priority road' traffic sign in the back), which makes it hard to classify. The main visible sign in the picture, 'Yield', scored second.
 
 These images were obtained from Google Image Search, cropped using ImageMagick, and resized to `32x32` using OpenCV's `cv2.INTER_AREA` interpolation algorithm.
 
-Interestingly, we classified the hardest example correctly: the third image actually contains a second traffic sign in the background!
-
 The most significant logits for each of these images were as follows:
-1) 'Dangerous curve to the left', 'Slippery road', 'Pedestrians', 'Right-of-way at the next intersection', and 'Traffic signals' (notice that the right label scored second);
-2) 'General caution', 'Pedestrians', 'Right-of-way at the next intersection', 'Traffic signals', and 'Road narrows on the right';
-3) 'Yield', 'General caution', 'No passing', 'Keep right', and 'No entry' (note that the background sign, 'Priority road', does not appear here);
-4) 'Road work', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'General caution', and 'Pedestrians';
-5) 'Speed limit (30km/h)', 'Speed limit (80km/h)', 'Speed limit (20km/h)', 'Speed limit (100km/h)', and 'Speed limit (50km/h)' (note that all of these are completely off).
+1) 'Slippery road', 'Dangerous curve to the left', 'Right-of-way at the next intersection', 'No passing', and 'No passing for vehicles over 3.5 metric tons';
+2) 'General caution', 'Pedestrians', 'Traffic signals', 'Road narrows on the right', and 'Right-of-way at the next intersection';
+3) 'General caution', 'Yield', 'Keep right', 'No entry', and 'Traffic signals' (note that the background sign, 'Priority road', does not appear here, and that the right label appears second);
+4) 'Road work', 'Right-of-way at the next intersection', 'Beware of ice/snow', 'Pedestrians', and 'General caution';
+5) 'Speed limit (30km/h)', 'Speed limit (20km/h)', 'Speed limit (50km/h)', 'Speed limit (80km/h)', and 'End of speed limit (80km/h)' (note that all of these are completely off).
+
+The corresponding probabilities were, respectively:
+1) [ 0.53674084,  0.41021359,  0.02243277,  0.02100401,  0.0096088 ]
+2) [ 9.99872804e-01, 8.41284491e-05, 2.00139748e-05, 1.63100704e-05, 6.68842631e-06 ]
+3) [ 0.38586387, 0.2144867, 0.21113734, 0.10630795, 0.08220422 ]
+4) [ 0.8433997, 0.14994322, 0.00324018, 0.00172584, 0.00169102]
+5) [ 0.42959258, 0.30500275, 0.10066373, 0.08846615, 0.07627483]
 
 ## Visualizing the first convolutional layer
-You may find the outputs of all the filters present in the first convolutiona layer below, when fed a randomly selected image from the training set (in this case, a 'Keep right' sign):
+You may find the outputs of all the filters present in the first convolutional layer below, when fed a randomly selected image from the training set (in this case, a 'Keep right' sign):
 ![visualization of filters](images/filters.png)
