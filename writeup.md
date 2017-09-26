@@ -75,7 +75,7 @@ Using a high dropout in the early stages of training can significantly obstruct 
 
 ## Solution approach
 
-We achieved 95.1% accuracy on the validation set and 95.8% accuracy on the validation set (both in epoch 26). We only save over previous checkpoints when the validation set accuracy is improved in later epochs, which did not happen in this case. The test accuracy was 92.6% (this value was only computed at the time of writing this report, with no changes being made thereafter).
+We achieved 95.1% accuracy on the validation set and 95.8% accuracy on the training set (both in epoch 26). We only save over previous checkpoints when the validation set accuracy is improved in later epochs, which did not happen in this case. The test accuracy was 92.6% (this value was only computed at the time of writing this report, with no changes being made thereafter).
 
 My approach was not very iterative; instead, I focused on solving each component of the pipeline well, but in a linear fashion. In my view, the key components that allowed me to reach the required accuracy on the validation set (93%), and in fact beat it by 2%, were:
 1) the use of SELU activations;
