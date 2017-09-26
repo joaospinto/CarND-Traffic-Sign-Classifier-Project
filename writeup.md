@@ -1,4 +1,4 @@
-#Traffic Sign Recognition (report by João Sousa-Pinto)
+# Traffic Sign Recognition (report by João Sousa-Pinto)
 
 ## Objectives
 
@@ -90,6 +90,7 @@ Please refer to the notebook for a precision/recall analysis. It is clear that i
 ## Testing the model on new images
 
 Here are the five images I downloaded for testing purposes:
+
 ![test image 1](images/new1.png)
 ![test image 2](images/new2.png)
 ![test image 3](images/new3.png)
