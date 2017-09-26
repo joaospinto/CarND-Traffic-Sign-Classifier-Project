@@ -9,9 +9,9 @@ The goal of this project is to train a neural network that is capable of achievi
 The original training set consists of `34799` examples; the validation set consists of `4410` examples; the training set consists of `12630` examples. The shape of each image is `(32,32,3)`, corresponding to `32x32` RGB images. There are `43` different traffic signs appearing in the training dataset.
 
 The frequency histograms of the different traffic signs in each dataset are as follows:
-![training frequencies]("images/training_frequencies.png")
-![validation frequencies]("images/validation_frequencies.png")
-![test frequencies]("images/test_frequencies.png")
+![training frequencies](images/training_frequencies.png)
+![validation frequencies](images/validation_frequencies.png)
+![test frequencies](images/test_frequencies.png)
 
 ## Approach
 
@@ -41,8 +41,8 @@ We use a few augmentation strategies:
 
 The random homographies are selected by selecting a fixed set of four central points in the image, adding a small random noise to them, and forcing the homography to map the initial four points to their noisy versions. The effect of this transformation can be found in the pair of images below.
 
-![preprocessed image before homography]("images/before_homography.png")
-![preprocessed image after homography]("images/after_homography.png")
+![preprocessed image before homography](images/before_homography.png)
+![preprocessed image after homography](images/after_homography.png)
 
 This essentially corresponds to viewing the world from a different perspective; of course, due to the limited amount of information available in the image, some areas that fall in the picture under the new perspective (but do not under the original one) will be black after the homography is applied.
 
@@ -83,18 +83,18 @@ My approach was not very iterative; instead, I focused on solving each component
 3) the way in which ever-more-aggressive dropout was scheduled.
 
 A plot of the confusion matrix for the validation dataset can be found below.
-![confusion matrix of validation dataset]("images/confusion.png")
+![confusion matrix of validation dataset](images/confusion.png)
 
 Please refer to the notebook for a precision/recall analysis. It is clear that it is possible to reach very high values of precision and recall simultaneously for each traffic sign, and the challenge of this project lies in providing good precision/recall scores in the signs that are under-represented in the original training set (for quite a few signs, we only have 30 or 60 training examples).
 
 ## Testing the model on new images
 
 Here are the five images I downloaded for testing purposes:
-![test image 1]("images/new1.png")
-![test image 2]("images/new2.png")
-![test image 3]("images/new3.png")
-![test image 4]("images/new4.png")
-![test image 5]("images/new5.png")
+![test image 1](images/new1.png)
+![test image 2](images/new2.png)
+![test image 3](images/new3.png)
+![test image 4](images/new4.png)
+![test image 5](images/new5.png)
 
 Our model classified them as being, respectively, 'Dangerous curve to the left', 'General caution', 'Yield', 'Road work', and 'Speed limit (30km/h)', corresponding to a 60% accuracy rate. Unsurprisingly, this is lower than the reported test accuracy (92.8%), since these images were acquired and preprocessed differently (although I did apply my preprocessing pipeline on them).
 
@@ -111,4 +111,4 @@ The most significant logits for each of these images were as follows:
 
 ## Visualizing the first convolutional layer
 You may find the outputs of all the filters present in the first convolutiona layer below, when fed a randomly selected image from the training set (in this case, a 'Keep right' sign):
-![visualization of filters]("images/filters.png")
+![visualization of filters](images/filters.png)
